@@ -4,7 +4,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 function getYearProgress(date) {
   const start = new Date(date.getFullYear(), 0, 1);
   const end = new Date(date.getFullYear() + 1, 0, 1);
-  const percent = ((date - start) / (end - start)) * 100;
+  const percent = ((date - start) / (end - start)) * 10;
   return Math.round(percent * 10) / 10;
 }
 
