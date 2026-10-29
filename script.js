@@ -1,35 +1,30 @@
-// Returns a greeting based on the hour (0-23).
-function getGreeting(hour) {
-  if (hour >= 5 && hour < 12) {
-    return "Good morning";
-  }
-  if (hour >= 12 && hour < 18) {
-    return "Good afternoon";
-  }
-  return "Good evening";
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+// Returns how much of the year has passed, as a percentage (0-100, one decimal).
+function getYearProgress(date) {
+  const start = new Date(date.getFullYear(), 0, 1);
+  const end = new Date(date.getFullYear() + 1, 0, 1);
+  const percent = ((date - start) / (end - start)) * 100;
+  return Math.round(percent * 10) / 10;
 }
 
-// Returns how much of the year has passed, as a whole percent (0-100).
-function getYearProgress(date) {
-  const year = date.getFullYear();
-  const start = new Date(year, 0, 1);
-  const end = new Date(year + 1, 0, 1);
-  return Math.floor(((date - start) / (end - start)) * 100);
+// Returns the number of days left in the year, counting today.
+function getDaysLeft(date) {
+  const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const nextYear = new Date(date.getFullYear() + 1, 0, 1);
+  return Math.round((nextYear - today) / DAY_MS);
 }
 
 // Runs when the page loads.
 function initPage() {
   const now = new Date();
   const percent = getYearProgress(now);
+  const daysLeft = getDaysLeft(now);
 
-  document.getElementById("greeting").textContent = getGreeting(now.getHours());
-  document.getElementById("date").textContent = now.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric"
-  });
+  document.getElementById("year").textContent = now.getFullYear();
   document.getElementById("percent").textContent = percent + "%";
   document.getElementById("fill").style.width = percent + "%";
+  document.getElementById("days-left").textContent = daysLeft + (daysLeft === 1 ? " day left" : " days left");
 }
 
 if (typeof window !== "undefined") {
@@ -38,5 +33,5 @@ if (typeof window !== "undefined") {
 
 // Lets Jest import the functions for testing.
 if (typeof module !== "undefined") {
-  module.exports = { getGreeting, getYearProgress };
+  module.exports = { getYearProgress, getDaysLeft };
 }
