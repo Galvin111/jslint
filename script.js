@@ -1,7 +1,7 @@
 // Returns a Filipino greeting based on the hour (0-23).
 function getGreeting(hour) {
   if (hour >= 5 && hour < 12) {
-    return "Good morning";
+    return "Magandang umaga";
   }
   if (hour >= 12 && hour < 18) {
     return "Magandang hapon";
