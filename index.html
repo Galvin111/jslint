@@ -3,37 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galvin Venturina</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <title>Year Progress</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="card">
-    <div class="avatar">
-      <span>GV</span>
+  <main>
+    <p class="label" id="greeting">Hello</p>
+    <h1 id="date">Today</h1>
+
+    <div class="bar">
+      <div class="fill" id="fill"></div>
     </div>
-
-    <p class="tag" id="greeting">Loading…</p>
-
-    <h1>the one who designs it, posts it, and builds where it lives.</h1>
-
-    <p class="lead">Social media manager. Designer. Site builder.</p>
-
-    <div class="status">
-      <span class="dot" id="status-dot"></span>
-      <span id="post-tip">Checking the feed…</span>
-    </div>
-
-    <button id="btn">▶ Let's talk</button>
-    <p id="message"></p>
-
-    <footer>
-      <span>Deployed with GitHub Actions</span>
-      <span>lint → test → deploy</span>
-    </footer>
+    <p class="meta"><span id="percent">0%</span> of the year has passed</p>
   </main>
+
+  <footer>Deployed with GitHub Actions</footer>
 
   <script src="script.js"></script>
 </body>

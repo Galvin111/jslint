@@ -1,39 +1,35 @@
-// Returns a Filipino greeting based on the hour (0-23).
+// Returns a greeting based on the hour (0-23).
 function getGreeting(hour) {
   if (hour >= 5 && hour < 12) {
-    return "Magandang umaga";
+    return "Good morning";
   }
   if (hour >= 12 && hour < 18) {
-    return "Magandang hapon";
+    return "Good afternoon";
   }
-  return "Magandang gabi";
+  return "Good evening";
 }
 
-// A social media manager's take: is now a good time to post?
-// Peak windows: 11:00-13:59 (lunch) and 19:00-21:59 (evening scroll).
-function getPostingTip(hour) {
-  const isPeak = (hour >= 11 && hour < 14) || (hour >= 19 && hour < 22);
-  if (isPeak) {
-    return { live: true, text: "Peak hours — post now." };
-  }
-  return { live: false, text: "Off-peak — schedule it for later." };
+// Returns how much of the year has passed, as a whole percent (0-100).
+function getYearProgress(date) {
+  const year = date.getFullYear();
+  const start = new Date(year, 0, 1);
+  const end = new Date(year + 1, 0, 1);
+  return Math.floor(((date - start) / (end - start)) * 100);
 }
 
 // Runs when the page loads.
 function initPage() {
-  const hour = new Date().getHours();
-  const tip = getPostingTip(hour);
+  const now = new Date();
+  const percent = getYearProgress(now);
 
-  document.getElementById("greeting").textContent = getGreeting(hour) + " 👋";
-  document.getElementById("post-tip").textContent = tip.text;
-
-  if (tip.live) {
-    document.getElementById("status-dot").classList.add("live");
-  }
-
-  document.getElementById("btn").addEventListener("click", function () {
-    document.getElementById("message").textContent = "Got a brand that needs a feed, a face, and a site? Let's talk.";
+  document.getElementById("greeting").textContent = getGreeting(now.getHours());
+  document.getElementById("date").textContent = now.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric"
   });
+  document.getElementById("percent").textContent = percent + "%";
+  document.getElementById("fill").style.width = percent + "%";
 }
 
 if (typeof window !== "undefined") {
@@ -42,5 +38,5 @@ if (typeof window !== "undefined") {
 
 // Lets Jest import the functions for testing.
 if (typeof module !== "undefined") {
-  module.exports = { getGreeting, getPostingTip };
+  module.exports = { getGreeting, getYearProgress };
 }

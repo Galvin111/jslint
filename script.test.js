@@ -1,29 +1,29 @@
-const { getGreeting, getPostingTip } = require("./script.js");
+const { getGreeting, getYearProgress } = require("./script.js");
 
 describe("getGreeting", () => {
   test("says good morning at 8 AM", () => {
-    expect(getGreeting(8)).toBe("Magandang umaga");
+    expect(getGreeting(8)).toBe("Good morning");
   });
 
   test("says good afternoon at 3 PM", () => {
-    expect(getGreeting(15)).toBe("Magandang hapon");
+    expect(getGreeting(15)).toBe("Good afternoon");
   });
 
   test("says good evening at 9 PM", () => {
-    expect(getGreeting(21)).toBe("Magandang gabi");
+    expect(getGreeting(21)).toBe("Good evening");
   });
 });
 
-describe("getPostingTip", () => {
-  test("lunch hour is peak", () => {
-    expect(getPostingTip(12).live).toBe(true);
+describe("getYearProgress", () => {
+  test("is 0% on January 1", () => {
+    expect(getYearProgress(new Date(2026, 0, 1))).toBe(0);
   });
 
-  test("8 PM is peak", () => {
-    expect(getPostingTip(20).live).toBe(true);
+  test("is about halfway on July 2", () => {
+    expect(getYearProgress(new Date(2026, 6, 2))).toBe(49);
   });
 
-  test("3 AM is off-peak", () => {
-    expect(getPostingTip(3).live).toBe(false);
+  test("is 99% on December 31", () => {
+    expect(getYearProgress(new Date(2026, 11, 31))).toBe(99);
   });
 });
